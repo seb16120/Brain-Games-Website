@@ -36,19 +36,19 @@
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow"><span></span> Collection de jeux indépendants</p>
+        <p class="eyebrow"><span></span> Collection de jeux qui font réfléchir</p>
         <h1 id="hero-title">Un terrain de jeu<br /><em>pour votre esprit.</em></h1>
         <p class="hero-copy">
           Stratégie, logique ou chance&nbsp;: choisissez votre défi et lancez une partie
           instantanément, sans installation.
         </p>
-        <a class="primary-button" href="#games">
-          Explorer les jeux
-          <span aria-hidden="true">↓</span>
-        </a>
+        <div class="tag-selector" aria-labelledby="tag-selector-label">
+          <span id="tag-selector-label">Filtrer par</span>
+          <div class="tag-filters" id="tag-filters" role="group" aria-label="Filtrer les jeux par tag"></div>
+        </div>
 
         <div class="hero-stats" aria-label="Informations sur la collection">
-          <div><strong>5</strong><span>jeux disponibles</span></div>
+          <div aria-live="polite"><strong id="visible-games-count">5</strong><span id="visible-games-label">jeux disponibles</span></div>
           <div><strong>100%</strong><span>gratuits</span></div>
           <div><strong>∞</strong><span>parties à jouer</span></div>
         </div>

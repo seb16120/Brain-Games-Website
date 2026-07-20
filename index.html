@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Une collection de jeux de réflexion gratuits à lancer directement dans votre navigateur."
+    />
+    <meta name="theme-color" content="#101426" />
+    <title>Brain Games — La collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Brain Games, accueil">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>Brain Games</span>
+      </a>
+
+      <nav aria-label="Navigation principale">
+        <a href="#games">Les jeux</a>
+        <a href="#coming-soon">À venir</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow"><span></span> Collection de jeux indépendants</p>
+        <h1 id="hero-title">Un terrain de jeu<br /><em>pour votre esprit.</em></h1>
+        <p class="hero-copy">
+          Stratégie, logique ou chance&nbsp;: choisissez votre défi et lancez une partie
+          instantanément, sans installation.
+        </p>
+        <a class="primary-button" href="#games">
+          Explorer les jeux
+          <span aria-hidden="true">↓</span>
+        </a>
+
+        <div class="hero-stats" aria-label="Informations sur la collection">
+          <div><strong>5</strong><span>jeux disponibles</span></div>
+          <div><strong>100%</strong><span>gratuits</span></div>
+          <div><strong>∞</strong><span>parties à jouer</span></div>
+        </div>
+      </section>
+
+      <section class="games-section" id="games" aria-labelledby="games-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span></span> La sélection</p>
+            <h2 id="games-title">Choisissez votre prochain défi</h2>
+          </div>
+          <p>Chaque jeu s’ouvre dans un nouvel onglet afin de garder la collection à portée de clic.</p>
+        </div>
+
+        <div class="games-grid" id="games-grid"></div>
+      </section>
+
+      <section class="coming-soon" id="coming-soon" aria-labelledby="soon-title">
+        <div>
+          <p class="eyebrow light"><span></span> Prochaine étape</p>
+          <h2 id="soon-title">Votre profil. Vos records.<br />Tous vos jeux.</h2>
+        </div>
+        <p>
+          Bientôt, jouez sans quitter Brain Games, créez votre profil et retrouvez vos
+          statistiques au même endroit.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>Brain Games</span>
+      </a>
+      <p>Des jeux simples. Des défis sérieux.</p>
+      <p>© <span id="current-year"></span> Brain Games</p>
+    </footer>
+  </body>
+</html>

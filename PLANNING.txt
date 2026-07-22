@@ -7,12 +7,15 @@ BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
          Les doublons sont empêchés par event_id et par le couple game_id/match_id.
          Un contrôle automatique vérifie la cohérence du registre et du schéma.
 
-BGW-P2 — Comptes et profils — TERMINÉ
+BGW-P2 — Comptes et profils — EN VALIDATION
          Le portail propose Google en priorité et e-mail + mot de passe en secours.
          La session persiste entre les visites et le joueur peut modifier son nom.
          Le profil Supabase commun est protégé par RLS ; les comptes anonymes des
          jeux sont explicitement exclus des profils synchronisés. Google OAuth est
          configuré et la reconnexion au même profil a été validée.
+         Validation restante : créer un compte par e-mail + mot de passe, confirmer
+         l’adresse, enregistrer son profil, se déconnecter puis vérifier que la
+         reconnexion retrouve le même profil.
          Ajustement visuel non bloquant : rendre la fenêtre de profil responsive
          pour les noms longs (titre limité à deux lignes, taille adaptative et
          espacement empêchant le chevauchement avec l’adresse e-mail).

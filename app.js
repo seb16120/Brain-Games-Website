@@ -235,7 +235,7 @@ function paintAccount(user, profile) {
 }
 
 async function renderSession(session) {
-  if (!session?.user) {
+  if (!session?.user || session.user.is_anonymous) {
     paintAccount(null, null);
     return;
   }

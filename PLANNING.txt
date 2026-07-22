@@ -1,5 +1,5 @@
 BRAIN GAMES WEBSITE — PLANNING
-Dernière mise à jour : 22 juillet 2026
+Dernière mise à jour : 23 juillet 2026
 
 BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
          Centraliser le registre stable des jeux, définir la frontière entre le
@@ -11,8 +11,11 @@ BGW-P2 — Comptes et profils — TERMINÉ
          Le portail propose Google en priorité et e-mail + mot de passe en secours.
          La session persiste entre les visites et le joueur peut modifier son nom.
          Le profil Supabase commun est protégé par RLS ; les comptes anonymes des
-         jeux sont explicitement exclus des profils synchronisés. L’activation
-         Google nécessite les identifiants OAuth du propriétaire dans le Dashboard.
+         jeux sont explicitement exclus des profils synchronisés. Google OAuth est
+         configuré et la reconnexion au même profil a été validée.
+         Ajustement visuel non bloquant : rendre la fenêtre de profil responsive
+         pour les noms longs (titre limité à deux lignes, taille adaptative et
+         espacement empêchant le chevauchement avec l’adresse e-mail).
 
 BGW-P3 — Historique central des parties — À FAIRE
          Stocker dans Supabase les parties classées, amicales online et amicales

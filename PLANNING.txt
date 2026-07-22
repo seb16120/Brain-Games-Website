@@ -1,0 +1,57 @@
+BRAIN GAMES WEBSITE — PLANNING
+Dernière mise à jour : 22 juillet 2026
+
+BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
+         Centraliser le registre stable des jeux, définir la frontière entre le
+         portail et les jeux, puis versionner le format commun des résultats.
+         Les doublons sont empêchés par event_id et par le couple game_id/match_id.
+         Un contrôle automatique vérifie la cohérence du registre et du schéma.
+
+BGW-P2 — Comptes et profils — À FAIRE
+         Ajouter la connexion Google en priorité, puis e-mail + mot de passe.
+         Un même profil Brain Games doit fonctionner sur tous les appareils.
+         Les invités peuvent jouer, mais n’alimentent pas de statistiques synchronisées.
+
+BGW-P3 — Historique central des parties — À FAIRE
+         Stocker dans Supabase les parties classées, amicales online et amicales
+         locales synchronisées. Une partie locale hors ligne reste en attente sur
+         l’appareil, puis est envoyée une seule fois au retour d’Internet.
+
+BGW-P4 — Première intégration : Elite Pixel Art — À FAIRE
+         Relier EPA au contrat commun. Seuls ses résultats validés par Supabase
+         pourront devenir classés ; les autres resteront amicaux.
+
+BGW-P5 — Tableau de bord des statistiques — À FAIRE
+         Afficher, séparément pour chaque jeu : parties, victoires et pourcentage,
+         nuls et pourcentage, défaites et pourcentage, Elo, meilleur Elo, ainsi
+         que la courbe d’Elo par jour, semaine, mois ou année.
+
+BGW-P6 — Elo 1 contre 1 — À FAIRE
+         Calculer l’Elo uniquement à partir des résultats classés validés par le
+         serveur. Les parties amicales sont comptabilisées à part et ne changent
+         jamais l’Elo.
+
+BGW-P7 — Déploiement vers les autres jeux — À FAIRE
+         Intégrer progressivement Otrio, Bingo Réversible, Lucky 21 puis
+         Exit Strategy 3 après validation serveur propre à chaque jeu.
+
+BGW-P8 — Elo par équipes — PLUS TARD
+         Préparer les modes 2v2 et 8v8 d’Exit Strategy 3 : Elo d’équipe pondéré
+         par le joueur le plus fort et le plus faible, gain minimal garanti pour
+         le plus faible et ajustement inverse symétrique à 90 % en cas de défaite.
+
+BGW-P9 — Coaching — PLUS TARD
+         Détecter ultérieurement fatigue et tilt pour proposer des conseils,
+         sans modifier les gains ni les pertes d’Elo.
+
+BGW-P10 — Jeux intégrés au portail — PLUS TARD
+          Lancer les jeux dans une interface Brain Games commune tout en
+          conservant l’ouverture dans un nouvel onglet comme solution de repli.
+
+Décisions conservées :
+- Brain Games Website possède l’identité, l’historique, les statistiques, les
+  graphiques, les classements et l’Elo.
+- Chaque jeu possède ses règles et la validation de ses résultats.
+- Un navigateur seul n’est jamais une autorité suffisante pour une partie classée.
+- Les parties locales peuvent être synchronisées comme amicales, sans Elo.
+- Les parties locales non synchronisées restent uniquement sur l’appareil.

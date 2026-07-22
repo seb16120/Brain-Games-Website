@@ -1,0 +1,40 @@
+{
+  "contract_version": "1.0",
+  "games": [
+    {
+      "id": "bingo-reversible",
+      "name": "Bingo Réversible",
+      "repository": "seb16120/bingo-reversible",
+      "public_url": "https://seb16120.github.io/bingo-reversible/",
+      "integration_status": "not-started"
+    },
+    {
+      "id": "elite-pixel-art",
+      "name": "Elite Pixel Art",
+      "repository": "seb16120/Elite-Pixel-Art",
+      "public_url": "https://seb16120.github.io/Elite-Pixel-Art/",
+      "integration_status": "server-validation-ready"
+    },
+    {
+      "id": "lucky-21",
+      "name": "Lucky 21",
+      "repository": "seb16120/Lucky-21",
+      "public_url": "https://seb16120.github.io/Lucky-21/",
+      "integration_status": "not-started"
+    },
+    {
+      "id": "exit-strategy-3",
+      "name": "Exit Strategy 3",
+      "repository": "seb16120/Exit-Strategy-3",
+      "public_url": "https://seb16120.github.io/Exit-Strategy-3/",
+      "integration_status": "not-started"
+    },
+    {
+      "id": "otrio",
+      "name": "Otrio",
+      "repository": "seb16120/otrio-web",
+      "public_url": "https://seb16120.github.io/otrio-web/",
+      "integration_status": "not-started"
+    }
+  ]
+}

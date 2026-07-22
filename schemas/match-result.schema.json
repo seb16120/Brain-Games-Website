@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seb16120.github.io/Brain-Games-Website/schemas/match-result.schema.json",
+  "title": "Brain Games match result",
+  "description": "Contrat versionné d’un résultat accepté par Brain Games Website.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "game_id",
+    "match_id",
+    "category",
+    "started_at",
+    "ended_at",
+    "participants",
+    "finish_reason",
+    "validation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "game_id": {
+      "type": "string",
+      "enum": [
+        "bingo-reversible",
+        "elite-pixel-art",
+        "lucky-21",
+        "exit-strategy-3",
+        "otrio"
+      ]
+    },
+    "match_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ranked",
+        "friendly_online",
+        "friendly_local"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "target_score"
+      ],
+      "properties": {
+        "type": {
+          "const": "first_to"
+        },
+        "target_score": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    "participants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "player_id",
+          "seat",
+          "team_id",
+          "outcome",
+          "score"
+        ],
+        "properties": {
+          "player_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "seat": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "team_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 64
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "win",
+              "draw",
+              "loss"
+            ]
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "finish_reason": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "forfeit",
+        "disconnect",
+        "timeout"
+      ]
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "reference"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string",
+          "enum": [
+            "server",
+            "client"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "ranked"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      },
+      "then": {
+        "properties": {
+          "validation": {
+            "properties": {
+              "authority": {
+                "const": "server"
+              }
+            },
+            "required": [
+              "authority"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

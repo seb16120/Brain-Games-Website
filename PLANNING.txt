@@ -7,10 +7,12 @@ BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
          Les doublons sont empêchés par event_id et par le couple game_id/match_id.
          Un contrôle automatique vérifie la cohérence du registre et du schéma.
 
-BGW-P2 — Comptes et profils — À FAIRE
-         Ajouter la connexion Google en priorité, puis e-mail + mot de passe.
-         Un même profil Brain Games doit fonctionner sur tous les appareils.
-         Les invités peuvent jouer, mais n’alimentent pas de statistiques synchronisées.
+BGW-P2 — Comptes et profils — TERMINÉ
+         Le portail propose Google en priorité et e-mail + mot de passe en secours.
+         La session persiste entre les visites et le joueur peut modifier son nom.
+         Le profil Supabase commun est protégé par RLS ; les comptes anonymes des
+         jeux sont explicitement exclus des profils synchronisés. L’activation
+         Google nécessite les identifiants OAuth du propriétaire dans le Dashboard.
 
 BGW-P3 — Historique central des parties — À FAIRE
          Stocker dans Supabase les parties classées, amicales online et amicales

@@ -17,6 +17,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.1"></script>
+    <script src="supabase-config.js"></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -29,10 +31,16 @@
         <span>Brain Games</span>
       </a>
 
-      <nav aria-label="Navigation principale">
-        <a href="#games">Les jeux</a>
-        <a href="#coming-soon">À venir</a>
-      </nav>
+      <div class="header-actions">
+        <nav aria-label="Navigation principale">
+          <a href="#games">Les jeux</a>
+          <a href="#profile">Profil</a>
+        </nav>
+        <button class="account-button" id="account-button" type="button" aria-haspopup="dialog">
+          <span class="account-initial" id="account-initial" aria-hidden="true">?</span>
+          <span id="account-label">Se connecter</span>
+        </button>
+      </div>
     </header>
 
     <main id="top">
@@ -67,17 +75,78 @@
         <div class="games-grid" id="games-grid"></div>
       </section>
 
-      <section class="coming-soon" id="coming-soon" aria-labelledby="soon-title">
+      <section class="coming-soon" id="profile" aria-labelledby="profile-title">
         <div>
-          <p class="eyebrow light"><span></span> Prochaine étape</p>
-          <h2 id="soon-title">Votre profil. Vos records.<br />Tous vos jeux.</h2>
+          <p class="eyebrow light"><span></span> Profil Brain Games</p>
+          <h2 id="profile-title">Un compte.<br />Tous vos jeux.</h2>
         </div>
-        <p>
-          Bientôt, jouez sans quitter Brain Games, créez votre profil et retrouvez vos
-          statistiques au même endroit.
-        </p>
+        <div class="profile-promo">
+          <p>Connectez-vous sur vos différents appareils avec Google ou votre adresse e-mail.</p>
+          <button class="profile-cta" id="profile-cta" type="button">Créer mon profil</button>
+        </div>
       </section>
     </main>
+
+    <dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
+      <div class="auth-dialog-inner">
+        <button class="dialog-close" id="auth-close" type="button" aria-label="Fermer">×</button>
+
+        <section id="auth-guest-view">
+          <p class="eyebrow"><span></span> Profil commun</p>
+          <h2 id="auth-title">Retrouvez Brain Games partout.</h2>
+          <p class="auth-copy">Google en priorité, ou votre adresse e-mail et un mot de passe.</p>
+
+          <button class="google-button" id="google-login" type="button">
+            <span aria-hidden="true">G</span>
+            Continuer avec Google
+          </button>
+
+          <div class="auth-separator"><span>ou</span></div>
+
+          <form class="auth-form" id="email-auth-form">
+            <label>
+              Nom de joueur
+              <input id="auth-display-name" name="display_name" minlength="2" maxlength="24" autocomplete="nickname" placeholder="Votre pseudo" />
+            </label>
+            <label>
+              Adresse e-mail
+              <input id="auth-email" name="email" type="email" autocomplete="email" required placeholder="vous@exemple.fr" />
+            </label>
+            <label>
+              Mot de passe
+              <input id="auth-password" name="password" type="password" minlength="8" autocomplete="current-password" required placeholder="8 caractères minimum" />
+            </label>
+            <div class="auth-form-actions">
+              <button class="auth-primary" id="email-login" type="submit">Se connecter</button>
+              <button class="auth-secondary" id="email-signup" type="button">Créer mon compte</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="auth-profile-view" hidden>
+          <p class="eyebrow"><span></span> Votre profil</p>
+          <div class="profile-identity">
+            <span class="profile-avatar" id="profile-avatar" aria-hidden="true">J</span>
+            <div>
+              <h2 id="profile-title-dialog">Bonjour, <span id="profile-name">Joueur</span>.</h2>
+              <p id="profile-email"></p>
+            </div>
+          </div>
+          <form class="auth-form" id="profile-form">
+            <label>
+              Nom de joueur
+              <input id="profile-display-name" minlength="2" maxlength="24" autocomplete="nickname" required />
+            </label>
+            <div class="auth-form-actions">
+              <button class="auth-primary" type="submit">Enregistrer</button>
+              <button class="auth-secondary" id="logout-button" type="button">Se déconnecter</button>
+            </div>
+          </form>
+        </section>
+
+        <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+      </div>
+    </dialog>
 
     <footer>
       <a class="brand footer-brand" href="#top">

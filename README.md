@@ -11,8 +11,18 @@ BGW-P1 est terminé. Le portail possède désormais :
 - un [contrat d’intégration](docs/INTEGRATION-JEUX.md) ;
 - un [schéma de résultat](schemas/match-result.schema.json) vérifié automatiquement.
 
-Les profils, statistiques et calculs d’Elo appartiendront au portail. Chaque jeu
-conservera ses règles et devra faire valider côté serveur tout résultat classé.
+Les profils, statistiques et calculs d’Elo appartiennent au portail. Chaque jeu
+conserve ses règles et doit faire valider côté serveur tout résultat classé.
+
+## Comptes Brain Games
+
+BGW-P2 ajoute une session persistante, la connexion e-mail/mot de passe et un
+profil modifiable commun aux futurs jeux intégrés. Le bouton Google est prêt ;
+son activation demande une configuration unique décrite dans
+[docs/AUTHENTIFICATION.md](docs/AUTHENTIFICATION.md).
+
+La clé publiée dans `supabase-config.js` est une clé publique prévue pour le
+navigateur. Aucune clé `service_role` ou secrète n’est incluse.
 
 ## Lancer le site localement
 

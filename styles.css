@@ -521,3 +521,270 @@ footer p:last-child {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.account-button,
+.profile-cta,
+.google-button,
+.auth-primary,
+.auth-secondary {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.account-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 210px;
+  padding: 7px 13px 7px 7px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.account-button > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-initial,
+.profile-avatar {
+  display: grid;
+  place-items: center;
+  color: white;
+  border-radius: 50%;
+  background: var(--purple);
+}
+
+.account-initial {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+
+.profile-promo {
+  display: grid;
+  gap: 22px;
+}
+
+.profile-promo p {
+  margin: 0;
+  color: #bfc4d4;
+  line-height: 1.7;
+}
+
+.profile-cta {
+  width: fit-content;
+  padding: 14px 20px;
+  color: var(--ink);
+  border-radius: 999px;
+  background: var(--lime);
+}
+
+.auth-dialog {
+  width: min(560px, calc(100% - 28px));
+  max-height: calc(100dvh - 28px);
+  padding: 0;
+  overflow: auto;
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  background: rgba(250, 250, 247, 0.96);
+  box-shadow: 0 30px 100px rgba(19, 23, 42, 0.28);
+}
+
+.auth-dialog::backdrop {
+  background: rgba(19, 23, 42, 0.46);
+  backdrop-filter: blur(4px);
+}
+
+.auth-dialog-inner {
+  position: relative;
+  padding: clamp(28px, 6vw, 48px);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.auth-dialog h2 {
+  padding-right: 28px;
+  font-size: clamp(2rem, 6vw, 3.15rem);
+  line-height: 1;
+}
+
+.auth-copy,
+#profile-email {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.google-button,
+.auth-primary,
+.auth-secondary {
+  min-height: 50px;
+  border-radius: 14px;
+}
+
+.google-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+  color: white;
+  background: var(--ink);
+}
+
+.google-button span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: var(--ink);
+  border-radius: 50%;
+  background: white;
+}
+
+.auth-separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.auth-separator::before,
+.auth-separator::after {
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+  content: "";
+}
+
+.auth-form {
+  display: grid;
+  gap: 15px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 14px 15px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  outline: none;
+  background: white;
+  font: inherit;
+}
+
+.auth-form input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(113, 71, 232, 0.12);
+}
+
+.auth-form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.auth-primary {
+  color: white;
+  background: var(--purple);
+}
+
+.auth-secondary {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.auth-status {
+  min-height: 1.35em;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.auth-status[data-kind="error"] {
+  color: #b33448;
+}
+
+.auth-status[data-kind="success"] {
+  color: #14735d;
+}
+
+.profile-identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.profile-avatar {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 auto;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.profile-identity h2,
+.profile-identity p {
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .header-actions {
+    gap: 8px;
+  }
+
+  .account-button {
+    max-width: 155px;
+  }
+
+  .account-button > span:last-child {
+    display: none;
+  }
+
+  .auth-form-actions {
+    grid-template-columns: 1fr;
+  }
+}

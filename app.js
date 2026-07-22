@@ -110,3 +110,255 @@ tags.forEach((tag) => {
 applyFilter("Tous");
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
+
+
+const SUPABASE_CONFIG = window.BRAIN_GAMES_SUPABASE;
+const supabaseClient =
+  window.supabase && SUPABASE_CONFIG
+    ? window.supabase.createClient(
+        SUPABASE_CONFIG.url,
+        SUPABASE_CONFIG.publishableKey,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true,
+          },
+        },
+      )
+    : null;
+
+const authDialog = document.querySelector("#auth-dialog");
+const accountButton = document.querySelector("#account-button");
+const accountLabel = document.querySelector("#account-label");
+const accountInitial = document.querySelector("#account-initial");
+const profileCta = document.querySelector("#profile-cta");
+const authClose = document.querySelector("#auth-close");
+const guestView = document.querySelector("#auth-guest-view");
+const profileView = document.querySelector("#auth-profile-view");
+const authStatus = document.querySelector("#auth-status");
+const googleLogin = document.querySelector("#google-login");
+const emailAuthForm = document.querySelector("#email-auth-form");
+const emailSignup = document.querySelector("#email-signup");
+const profileForm = document.querySelector("#profile-form");
+const logoutButton = document.querySelector("#logout-button");
+let activeUser = null;
+let activeProfile = null;
+
+function setAuthStatus(message, kind = "") {
+  authStatus.textContent = message;
+  authStatus.dataset.kind = kind;
+}
+
+function friendlyAuthError(error) {
+  const message = error?.message || "Une erreur inattendue est survenue.";
+  const translations = {
+    "Invalid login credentials": "Adresse e-mail ou mot de passe incorrect.",
+    "Email not confirmed": "Confirmez d’abord votre adresse e-mail.",
+    "User already registered": "Un compte existe déjà avec cette adresse e-mail.",
+    "Unsupported provider": "La connexion Google doit encore être activée dans Supabase.",
+  };
+  return translations[message] || message;
+}
+
+function openAuthDialog() {
+  setAuthStatus("");
+  if (typeof authDialog.showModal === "function") {
+    authDialog.showModal();
+  } else {
+    authDialog.setAttribute("open", "");
+  }
+}
+
+function closeAuthDialog() {
+  authDialog.close();
+}
+
+function getFallbackName(user) {
+  const metadata = user.user_metadata || {};
+  const emailName = (user.email || "").split("@")[0];
+  return (
+    metadata.display_name ||
+    metadata.full_name ||
+    metadata.name ||
+    emailName ||
+    "Joueur"
+  ).slice(0, 24);
+}
+
+async function loadOrCreateProfile(user) {
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id, display_name, avatar_url, created_at, updated_at")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (data) return data;
+
+  const fallbackName = getFallbackName(user);
+  const displayName = fallbackName.length >= 2 ? fallbackName : "Joueur";
+  const { data: created, error: createError } = await supabaseClient
+    .from("profiles")
+    .insert({ id: user.id, display_name: displayName })
+    .select()
+    .single();
+
+  if (createError) throw createError;
+  return created;
+}
+
+function paintAccount(user, profile) {
+  activeUser = user;
+  activeProfile = profile;
+
+  if (!user) {
+    accountLabel.textContent = "Se connecter";
+    accountInitial.textContent = "?";
+    guestView.hidden = false;
+    profileView.hidden = true;
+    profileCta.textContent = "Créer mon profil";
+    return;
+  }
+
+  const name = profile?.display_name || getFallbackName(user);
+  const initial = name.trim().charAt(0).toUpperCase() || "J";
+  accountLabel.textContent = name;
+  accountInitial.textContent = initial;
+  profileCta.textContent = "Ouvrir mon profil";
+  guestView.hidden = true;
+  profileView.hidden = false;
+  document.querySelector("#profile-avatar").textContent = initial;
+  document.querySelector("#profile-name").textContent = name;
+  document.querySelector("#profile-email").textContent = user.email || "Compte Google";
+  document.querySelector("#profile-display-name").value = name;
+}
+
+async function renderSession(session) {
+  if (!session?.user) {
+    paintAccount(null, null);
+    return;
+  }
+
+  try {
+    const profile = await loadOrCreateProfile(session.user);
+    paintAccount(session.user, profile);
+  } catch (error) {
+    paintAccount(session.user, null);
+    setAuthStatus(friendlyAuthError(error), "error");
+  }
+}
+
+accountButton.addEventListener("click", openAuthDialog);
+profileCta.addEventListener("click", openAuthDialog);
+authClose.addEventListener("click", closeAuthDialog);
+authDialog.addEventListener("click", (event) => {
+  if (event.target === authDialog) closeAuthDialog();
+});
+
+googleLogin.addEventListener("click", async () => {
+  if (!supabaseClient) return;
+  setAuthStatus("Ouverture de Google…");
+  const redirectTo = window.location.origin + window.location.pathname;
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo },
+  });
+  if (error) setAuthStatus(friendlyAuthError(error), "error");
+});
+
+emailAuthForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!supabaseClient) return;
+
+  const email = document.querySelector("#auth-email").value.trim();
+  const password = document.querySelector("#auth-password").value;
+  setAuthStatus("Connexion…");
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  setAuthStatus(
+    error ? friendlyAuthError(error) : "Connexion réussie.",
+    error ? "error" : "success",
+  );
+});
+
+emailSignup.addEventListener("click", async () => {
+  if (!supabaseClient) return;
+
+  const displayName = document.querySelector("#auth-display-name").value.trim();
+  const email = document.querySelector("#auth-email").value.trim();
+  const password = document.querySelector("#auth-password").value;
+
+  if (displayName.length < 2 || displayName.length > 24) {
+    setAuthStatus("Choisissez un nom de joueur entre 2 et 24 caractères.", "error");
+    return;
+  }
+
+  if (!emailAuthForm.reportValidity()) return;
+  setAuthStatus("Création du compte…");
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: { data: { display_name: displayName } },
+  });
+
+  if (error) {
+    setAuthStatus(friendlyAuthError(error), "error");
+  } else if (!data.session) {
+    setAuthStatus("Compte créé. Confirmez maintenant votre adresse e-mail.", "success");
+  } else {
+    setAuthStatus("Votre profil Brain Games est prêt.", "success");
+  }
+});
+
+profileForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!supabaseClient || !activeUser) return;
+
+  const displayName = document.querySelector("#profile-display-name").value.trim();
+  if (displayName.length < 2 || displayName.length > 24) {
+    setAuthStatus("Le nom doit contenir entre 2 et 24 caractères.", "error");
+    return;
+  }
+
+  setAuthStatus("Enregistrement…");
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .update({ display_name: displayName })
+    .eq("id", activeUser.id)
+    .select()
+    .single();
+
+  if (error) {
+    setAuthStatus(friendlyAuthError(error), "error");
+    return;
+  }
+
+  paintAccount(activeUser, data);
+  setAuthStatus("Profil enregistré.", "success");
+});
+
+logoutButton.addEventListener("click", async () => {
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient.auth.signOut();
+  setAuthStatus(
+    error ? friendlyAuthError(error) : "Vous êtes déconnecté.",
+    error ? "error" : "success",
+  );
+});
+
+if (!supabaseClient) {
+  setAuthStatus("Le service de connexion est momentanément indisponible.", "error");
+  accountButton.disabled = true;
+  profileCta.disabled = true;
+} else {
+  supabaseClient.auth.getSession().then(({ data }) => renderSession(data.session));
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    window.setTimeout(() => renderSession(session), 0);
+  });
+}

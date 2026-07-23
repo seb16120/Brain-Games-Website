@@ -27,6 +27,18 @@ BGW-P2.1 — SMTP de production — À FAIRE AVANT OUVERTURE PUBLIQUE
            puis vérifier confirmation, récupération de mot de passe, délivrabilité
            et protection contre les abus avant l’ouverture aux joueurs.
 
+BGW-P2.2 — Identité éditoriale et ressources externes — TERMINÉ
+           Ajouter une rubrique « Sites similaires ou d’intérêt » regroupant
+           jeux issus d’émissions, jeux de réflexion, références et guides.
+           Chaque lien s’ouvre dans un nouvel onglet et une mention précise
+           l’absence de partenariat ou d’affiliation. Pour parler de The Genius,
+           The Devil’s Plan, University War et formats proches, employer
+           « émissions de compétition intellectuelle et stratégique » ; les
+           appellations anglaises « brain shows » et « mind-game shows » restent
+           utilisables dans les contenus destinés à cette communauté.
+           Brain Games Website est un projet non commercial et n’est pas lié à
+           l’entreprise du créateur.
+
 BGW-P3 — Historique central des parties — À FAIRE
          Stocker dans Supabase les parties classées, amicales online et amicales
          locales synchronisées. Une partie locale hors ligne reste en attente sur

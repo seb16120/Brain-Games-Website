@@ -10,7 +10,7 @@ const games = [
   {
     name: "Elite Pixel Art",
     description: "Créez et explorez un univers rétro, pixel après pixel.",
-    tags: ["Créativité"],
+    tags: ["Créativité", "Created in a Korean Brain Show"],
     icon: "▦",
     accent: "#e05f5f",
     url: "https://seb16120.github.io/Elite-Pixel-Art/",

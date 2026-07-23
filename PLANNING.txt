@@ -41,9 +41,14 @@ BGW-P3 — Historique central des parties — TERMINÉ
          idempotente au retour d’Internet. L’association aux autres comptes ne
          pourra être créée que par la validation serveur d’un jeu online.
 
-BGW-P4 — Première intégration : Elite Pixel Art — À FAIRE
-         Relier EPA au contrat commun. Seuls ses résultats validés par Supabase
-         pourront devenir classés ; les autres resteront amicaux.
+BGW-P4 — Première intégration : Elite Pixel Art — TERMINÉ
+         Les FT online terminés sont publiés automatiquement par Supabase comme
+         parties amicales validées par le serveur. Une revanche reçoit un nouvel
+         identifiant idempotent. Les profils Brainy Games Hub reconnus sont reliés
+         à leur résultat ; les invités peuvent toujours jouer sans créer de faux
+         historique personnel. En local, le profil choisit J1 ou J2 et le résultat
+         amical est conservé hors ligne puis synchronisé au retour d’Internet.
+         Aucun de ces résultats ne modifie encore l’Elo.
 
 BGW-P5 — Tableau de bord des statistiques — À FAIRE
          Afficher, séparément pour chaque jeu : parties, victoires et pourcentage,

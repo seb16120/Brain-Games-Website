@@ -1,6 +1,6 @@
-# Brain Games
+# Brainy Games Hub
 
-Portail statique qui rassemble les jeux de la collection Brain Games.
+Portail statique qui rassemble les jeux de la collection Brainy Games Hub.
 
 ## Architecture commune
 
@@ -14,7 +14,7 @@ BGW-P1 est terminé. Le portail possède désormais :
 Les profils, statistiques et calculs d’Elo appartiennent au portail. Chaque jeu
 conserve ses règles et doit faire valider côté serveur tout résultat classé.
 
-## Comptes Brain Games
+## Comptes Brainy Games Hub
 
 BGW-P2 ajoute une session persistante, la connexion e-mail/mot de passe et un
 profil modifiable commun aux futurs jeux intégrés. Le bouton Google est prêt ;

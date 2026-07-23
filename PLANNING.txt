@@ -77,8 +77,9 @@ BGW-P10 — Jeux intégrés au portail — PLUS TARD
 
 Décisions conservées :
 - Le nom public du portail est « Brainy Games Hub ».
-- Le tag anglais « Created in a Korean Brain Show » identifie Bingo Réversible,
-  Lucky 21 et Exit Strategy 3, jeux créés dans Elite League / University War.
+- Le tag anglais « Created in a Korean Brain Show » identifie Elite Pixel Art,
+  Bingo Réversible, Lucky 21 et Exit Strategy 3, jeux créés dans des émissions
+  coréennes de compétition intellectuelle et stratégique.
 - Brainy Games Hub possède l’identité, l’historique, les statistiques, les
   graphiques, les classements et l’Elo.
 - Chaque jeu possède ses règles et la validation de ses résultats.

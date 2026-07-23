@@ -750,6 +750,23 @@ footer p:last-child {
   color: #14735d;
 }
 
+.auth-status[data-kind="email-rate-limit"] {
+  display: grid;
+  gap: 4px;
+}
+
+.auth-status-line {
+  display: block;
+}
+
+.auth-status-line--danger {
+  color: #b33448;
+}
+
+.auth-status-line--info {
+  color: #3477cf;
+}
+
 .profile-identity {
   display: flex;
   align-items: center;

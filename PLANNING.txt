@@ -1,4 +1,4 @@
-BRAIN GAMES WEBSITE — PLANNING
+BRAINY GAMES HUB — PLANNING
 Dernière mise à jour : 23 juillet 2026
 
 BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
@@ -14,7 +14,7 @@ BGW-P2 — Comptes et profils — EN VALIDATION
          jeux sont explicitement exclus des profils synchronisés. Google OAuth est
          configuré et la reconnexion au même profil a été validée.
          La création du compte e-mail et le retour du lien de confirmation vers
-         Brain Games sont validés. Validation restante : enregistrer le profil,
+         Brainy Games Hub sont validés. Validation restante : enregistrer le profil,
          se déconnecter puis vérifier que la reconnexion retrouve le même profil.
          Ajustement visuel non bloquant : rendre la fenêtre de profil responsive
          pour les noms longs (titre limité à deux lignes, taille adaptative et
@@ -36,7 +36,7 @@ BGW-P2.2 — Identité éditoriale et ressources externes — TERMINÉ
            « émissions de compétition intellectuelle et stratégique » ; les
            appellations anglaises « brain shows » et « mind-game shows » restent
            utilisables dans les contenus destinés à cette communauté.
-           Brain Games Website est un projet non commercial et n’est pas lié à
+           Brainy Games Hub est un projet non commercial et n’est pas lié à
            l’entreprise du créateur.
 
 BGW-P3 — Historique central des parties — À FAIRE
@@ -72,11 +72,14 @@ BGW-P9 — Coaching — PLUS TARD
          sans modifier les gains ni les pertes d’Elo.
 
 BGW-P10 — Jeux intégrés au portail — PLUS TARD
-          Lancer les jeux dans une interface Brain Games commune tout en
+          Lancer les jeux dans une interface Brainy Games Hub commune tout en
           conservant l’ouverture dans un nouvel onglet comme solution de repli.
 
 Décisions conservées :
-- Brain Games Website possède l’identité, l’historique, les statistiques, les
+- Le nom public du portail est « Brainy Games Hub ».
+- Le tag anglais « Created in a Korean Brain Show » identifie Bingo Réversible,
+  Lucky 21 et Exit Strategy 3, jeux créés dans Elite League / University War.
+- Brainy Games Hub possède l’identité, l’historique, les statistiques, les
   graphiques, les classements et l’Elo.
 - Chaque jeu possède ses règles et la validation de ses résultats.
 - Un navigateur seul n’est jamais une autorité suffisante pour une partie classée.

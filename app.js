@@ -2,7 +2,7 @@ const games = [
   {
     name: "Bingo Réversible",
     description: "Un bingo tactique où chaque choix peut renverser le cours de la partie.",
-    tags: ["Tactique"],
+    tags: ["Tactique", "Created in a Korean Brain Show"],
     icon: "↔",
     accent: "#6c45db",
     url: "https://seb16120.github.io/bingo-reversible/",
@@ -18,7 +18,7 @@ const games = [
   {
     name: "Lucky 21",
     description: "Mémorisez les cartes et tentez d’approcher le nombre parfait.",
-    tags: ["Cartes", "Mémoire"],
+    tags: ["Cartes", "Mémoire", "Created in a Korean Brain Show"],
     icon: "♠",
     accent: "#208b73",
     url: "https://seb16120.github.io/Lucky-21/",
@@ -26,7 +26,7 @@ const games = [
   {
     name: "Exit Strategy 3",
     description: "Anticipez, planifiez et trouvez la meilleure voie de sortie.",
-    tags: ["Stratégie"],
+    tags: ["Stratégie", "Created in a Korean Brain Show"],
     icon: "⌁",
     accent: "#d16f20",
     url: "https://seb16120.github.io/Exit-Strategy-3/",
@@ -408,7 +408,7 @@ emailSignup.addEventListener("click", async () => {
   } else if (!data.session) {
     setAuthStatus("Compte créé. Confirmez maintenant votre adresse e-mail.", "success");
   } else {
-    setAuthStatus("Votre profil Brain Games est prêt.", "success");
+    setAuthStatus("Votre profil Brainy Games Hub est prêt.", "success");
   }
 });
 

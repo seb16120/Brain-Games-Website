@@ -7,25 +7,18 @@ BGW-P1 — Architecture commune et contrat d’intégration — TERMINÉ
          Les doublons sont empêchés par event_id et par le couple game_id/match_id.
          Un contrôle automatique vérifie la cohérence du registre et du schéma.
 
-BGW-P2 — Comptes et profils — EN VALIDATION
+BGW-P2 — Comptes et profils — TERMINÉ
          Le portail propose Google en priorité et e-mail + mot de passe en secours.
          La session persiste entre les visites et le joueur peut modifier son nom.
          Le profil Supabase commun est protégé par RLS ; les comptes anonymes des
          jeux sont explicitement exclus des profils synchronisés. Google OAuth est
          configuré et la reconnexion au même profil a été validée.
-         La création du compte e-mail et le retour du lien de confirmation vers
-         Brainy Games Hub sont validés. Validation restante : enregistrer le profil,
-         se déconnecter puis vérifier que la reconnexion retrouve le même profil.
+         La création du compte e-mail, le retour du lien de confirmation vers
+         Brainy Games Hub, l’enregistrement du profil, la déconnexion et la
+         reconnexion au même profil sont validés.
          Ajustement visuel non bloquant : rendre la fenêtre de profil responsive
          pour les noms longs (titre limité à deux lignes, taille adaptative et
          espacement empêchant le chevauchement avec l’adresse e-mail).
-
-BGW-P2.1 — SMTP de production — À FAIRE AVANT OUVERTURE PUBLIQUE
-           Remplacer le service d’e-mail intégré de Supabase, limité à deux
-           envois par heure pour tout le projet, par un fournisseur SMTP
-           personnalisé. Comparer notamment Resend, Brevo, Postmark et Mailgun,
-           puis vérifier confirmation, récupération de mot de passe, délivrabilité
-           et protection contre les abus avant l’ouverture aux joueurs.
 
 BGW-P2.2 — Identité éditoriale et ressources externes — TERMINÉ
            Ajouter une rubrique « Sites similaires ou d’intérêt » regroupant
@@ -62,16 +55,23 @@ BGW-P7 — Déploiement vers les autres jeux — À FAIRE
          Intégrer progressivement Otrio, Bingo Réversible, Lucky 21 puis
          Exit Strategy 3 après validation serveur propre à chaque jeu.
 
-BGW-P8 — Elo par équipes — PLUS TARD
+BGW-P8 — SMTP de production — À FAIRE AVANT OUVERTURE PUBLIQUE
+         Remplacer le service d’e-mail intégré de Supabase, limité à deux
+         envois par heure pour tout le projet, par un fournisseur SMTP
+         personnalisé. Comparer notamment Resend, Brevo, Postmark et Mailgun,
+         puis vérifier confirmation, récupération de mot de passe, délivrabilité
+         et protection contre les abus avant l’ouverture aux joueurs.
+
+BGW-P9 — Elo par équipes — PLUS TARD
          Préparer les modes 2v2 et 8v8 d’Exit Strategy 3 : Elo d’équipe pondéré
          par le joueur le plus fort et le plus faible, gain minimal garanti pour
          le plus faible et ajustement inverse symétrique à 90 % en cas de défaite.
 
-BGW-P9 — Coaching — PLUS TARD
+BGW-P10 — Coaching — PLUS TARD
          Détecter ultérieurement fatigue et tilt pour proposer des conseils,
          sans modifier les gains ni les pertes d’Elo.
 
-BGW-P10 — Jeux intégrés au portail — PLUS TARD
+BGW-P11 — Jeux intégrés au portail — PLUS TARD
           Lancer les jeux dans une interface Brainy Games Hub commune tout en
           conservant l’ouverture dans un nouvel onglet comme solution de repli.
 

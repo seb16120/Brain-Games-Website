@@ -389,6 +389,7 @@ h1 em {
 }
 
 .resource-card {
+  --resource-accent: var(--purple);
   position: relative;
   display: flex;
   min-height: 235px;
@@ -406,19 +407,39 @@ h1 em {
 
 .resource-card:hover,
 .resource-card:focus-visible {
-  border-color: rgba(113, 71, 232, 0.38);
-  box-shadow: 0 20px 54px rgba(76, 48, 150, 0.11);
+  border-color: color-mix(in srgb, var(--resource-accent) 48%, transparent);
+  box-shadow: 0 20px 54px color-mix(in srgb, var(--resource-accent) 15%, transparent);
   outline: none;
   transform: translateY(-4px);
+}
+
+.resource-theme-show {
+  --resource-accent: #7147e8;
+}
+
+.resource-theme-online {
+  --resource-accent: #168d81;
+}
+
+.resource-theme-logic {
+  --resource-accent: #4f8a3f;
+}
+
+.resource-theme-community {
+  --resource-accent: #3477cf;
+}
+
+.resource-theme-puzzle {
+  --resource-accent: #d16f20;
 }
 
 .resource-category {
   width: fit-content;
   margin-bottom: auto;
   padding: 6px 9px;
-  color: var(--purple-dark);
+  color: color-mix(in srgb, var(--resource-accent) 82%, var(--ink));
   border-radius: 999px;
-  background: rgba(113, 71, 232, 0.1);
+  background: color-mix(in srgb, var(--resource-accent) 13%, white);
   font-size: 0.67rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -448,7 +469,8 @@ h1 em {
   width: 30px;
   height: 30px;
   place-items: center;
-  border: 1px solid var(--line);
+  color: var(--resource-accent);
+  border: 1px solid color-mix(in srgb, var(--resource-accent) 24%, transparent);
   border-radius: 50%;
 }
 

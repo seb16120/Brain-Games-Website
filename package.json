@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-contract.mjs"
+    "test": "node scripts/validate-contract.mjs && node --test tests/*.test.mjs"
   }
 }

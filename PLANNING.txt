@@ -32,10 +32,14 @@ BGW-P2.2 — Identité éditoriale et ressources externes — TERMINÉ
            Brainy Games Hub est un projet non commercial et n’est pas lié à
            l’entreprise du créateur.
 
-BGW-P3 — Historique central des parties — À FAIRE
-         Stocker dans Supabase les parties classées, amicales online et amicales
-         locales synchronisées. Une partie locale hors ligne reste en attente sur
-         l’appareil, puis est envoyée une seule fois au retour d’Internet.
+BGW-P3 — Historique central des parties — TERMINÉ
+         Supabase stocke le contrat commun des parties classées, amicales online
+         et amicales locales. Les doublons sont bloqués par event_id et par
+         (game_id, match_id). RLS isole les historiques entre profils et interdit
+         au navigateur de déclarer une partie classée. Le module commun conserve
+         une partie locale hors ligne sur l’appareil, puis la synchronise de façon
+         idempotente au retour d’Internet. L’association aux autres comptes ne
+         pourra être créée que par la validation serveur d’un jeu online.
 
 BGW-P4 — Première intégration : Elite Pixel Art — À FAIRE
          Relier EPA au contrat commun. Seuls ses résultats validés par Supabase

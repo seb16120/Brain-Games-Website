@@ -23,8 +23,8 @@ suffit donc pas à écrire dans l'historique d'un autre joueur.
 - Une partie locale ne modifie jamais l'Elo.
 - `ranked` exige l'autorité `server` et ne peut pas être créé par un joueur
   depuis le navigateur.
-- Les jeux online seront reliés progressivement par une validation serveur propre
-  à chacun, à partir de BGW-P4.
+- Les jeux online sont reliés progressivement par une validation serveur propre
+  à chacun. Elite Pixel Art est la première intégration terminée.
 
 Les deux tables utilisent RLS. Un profil voit uniquement les événements auxquels
 il est relié et ne peut pas modifier ou supprimer l'historique accepté.
@@ -61,8 +61,33 @@ Si Internet est coupé, la partie reste sur l'appareil. Au retour du réseau, le
 module appelle `submit_friendly_local_match`. Une répétition identique est
 acceptée comme déjà synchronisée au lieu de créer une seconde partie.
 
-## 4. Intégration future
+## 4. Elite Pixel Art — BGW-P4
 
-BGW-P4 branchera d'abord Elite Pixel Art sur ce contrat. Les autres jeux suivront
-sans changer le format version 1.0. Les statistiques et l'Elo seront construits
-dans les étapes suivantes à partir des événements centraux.
+### 4.1 Parties online
+
+Quand un FT1, FT2 ou FT3 passe à l'état terminé, un déclencheur Supabase écrit un
+événement `friendly_online` avec l'autorité `server`. Le navigateur ne peut ni
+fabriquer ni modifier cet événement. Le `match_series_id` sert d'identifiant
+idempotent et change au lancement d'une revanche.
+
+Les joueurs déjà connectés à Brainy Games Hub sont reconnus grâce à la session
+Supabase commune aux deux pages GitHub. Leur profil est relié au résultat. Un
+invité ou un compte anonyme peut continuer à jouer, mais il ne crée pas de faux
+historique personnel.
+
+### 4.2 Parties locales
+
+Le joueur connecté choisit s'il occupe J1 ou J2. À la fin du FT, le résultat est
+enregistré comme `friendly_local`. Sans Internet, il reste dans une file propre
+au profil sur l'appareil, puis se synchronise automatiquement au retour du réseau.
+
+### 4.3 Elo
+
+Toutes les parties Elite Pixel Art de cette étape sont amicales. Elles alimentent
+l'historique, mais ne modifient pas l'Elo. Le classement sera ajouté dans une étape
+ultérieure avec des règles de validation distinctes.
+
+## 5. Intégrations suivantes
+
+Otrio, Bingo Réversible, Lucky 21 puis Exit Strategy 3 suivront le même contrat
+version 1.0, avec une validation serveur adaptée aux règles de chaque jeu.

@@ -13,12 +13,19 @@ BGW-P2 — Comptes et profils — EN VALIDATION
          Le profil Supabase commun est protégé par RLS ; les comptes anonymes des
          jeux sont explicitement exclus des profils synchronisés. Google OAuth est
          configuré et la reconnexion au même profil a été validée.
-         Validation restante : créer un compte par e-mail + mot de passe, confirmer
-         l’adresse, enregistrer son profil, se déconnecter puis vérifier que la
-         reconnexion retrouve le même profil.
+         La création du compte e-mail et le retour du lien de confirmation vers
+         Brain Games sont validés. Validation restante : enregistrer le profil,
+         se déconnecter puis vérifier que la reconnexion retrouve le même profil.
          Ajustement visuel non bloquant : rendre la fenêtre de profil responsive
          pour les noms longs (titre limité à deux lignes, taille adaptative et
          espacement empêchant le chevauchement avec l’adresse e-mail).
+
+BGW-P2.1 — SMTP de production — À FAIRE AVANT OUVERTURE PUBLIQUE
+           Remplacer le service d’e-mail intégré de Supabase, limité à deux
+           envois par heure pour tout le projet, par un fournisseur SMTP
+           personnalisé. Comparer notamment Resend, Brevo, Postmark et Mailgun,
+           puis vérifier confirmation, récupération de mot de passe, délivrabilité
+           et protection contre les abus avant l’ouverture aux joueurs.
 
 BGW-P3 — Historique central des parties — À FAIRE
          Stocker dans Supabase les parties classées, amicales online et amicales

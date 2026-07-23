@@ -144,10 +144,94 @@ const profileForm = document.querySelector("#profile-form");
 const logoutButton = document.querySelector("#logout-button");
 let activeUser = null;
 let activeProfile = null;
+let emailRateLimitInterval = null;
+
+const EMAIL_RATE_LIMIT_STORAGE_KEY = "brain-games-email-rate-limit-started-at";
+const EMAIL_RATE_LIMIT_DURATION_MS = 60 * 60 * 1000;
+const EMAIL_RATE_LIMIT_STEPS = 8;
+
+function stopEmailRateLimitUpdates() {
+  if (emailRateLimitInterval) {
+    window.clearInterval(emailRateLimitInterval);
+    emailRateLimitInterval = null;
+  }
+}
 
 function setAuthStatus(message, kind = "") {
+  stopEmailRateLimitUpdates();
   authStatus.textContent = message;
   authStatus.dataset.kind = kind;
+}
+
+function formatRemainingWait(remainingMs) {
+  const totalSeconds = Math.max(0, Math.ceil(remainingMs / 10000) * 10);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes} min ${String(seconds).padStart(2, "0")} s`;
+}
+
+function paintEmailRateLimitStatus(startedAt) {
+  const elapsed = Date.now() - startedAt;
+  const remaining = EMAIL_RATE_LIMIT_DURATION_MS - elapsed;
+
+  if (remaining <= 0) {
+    localStorage.removeItem(EMAIL_RATE_LIMIT_STORAGE_KEY);
+    setAuthStatus("Vous pouvez maintenant réessayer.", "success");
+    return false;
+  }
+
+  const progress = Math.min(
+    EMAIL_RATE_LIMIT_STEPS,
+    Math.floor((elapsed / EMAIL_RATE_LIMIT_DURATION_MS) * EMAIL_RATE_LIMIT_STEPS) + 1,
+  );
+
+  const warning = document.createElement("span");
+  warning.className = "auth-status-line auth-status-line--danger";
+  warning.textContent =
+    "Trop d’e-mails ont été envoyés à l’ensemble des joueurs potentiels.";
+
+  const wait = document.createElement("span");
+  wait.className = "auth-status-line auth-status-line--info";
+  wait.textContent =
+    `Patientez encore environ ${formatRemainingWait(remaining)} avant de réessayer. ` +
+    `(progression de l’attente ${progress}/${EMAIL_RATE_LIMIT_STEPS})`;
+
+  authStatus.replaceChildren(warning, wait);
+  authStatus.dataset.kind = "email-rate-limit";
+  return true;
+}
+
+function startEmailRateLimitStatus() {
+  stopEmailRateLimitUpdates();
+
+  const storedStartedAt = Number(
+    localStorage.getItem(EMAIL_RATE_LIMIT_STORAGE_KEY),
+  );
+  const startedAt =
+    storedStartedAt &&
+    Date.now() - storedStartedAt < EMAIL_RATE_LIMIT_DURATION_MS
+      ? storedStartedAt
+      : Date.now();
+
+  localStorage.setItem(EMAIL_RATE_LIMIT_STORAGE_KEY, String(startedAt));
+
+  if (!paintEmailRateLimitStatus(startedAt)) return;
+
+  emailRateLimitInterval = window.setInterval(() => {
+    if (!paintEmailRateLimitStatus(startedAt)) {
+      stopEmailRateLimitUpdates();
+    }
+  }, 10000);
+}
+
+function hasActiveEmailRateLimit() {
+  const startedAt = Number(
+    localStorage.getItem(EMAIL_RATE_LIMIT_STORAGE_KEY),
+  );
+  return (
+    startedAt > 0 &&
+    Date.now() - startedAt < EMAIL_RATE_LIMIT_DURATION_MS
+  );
 }
 
 function friendlyAuthError(error) {
@@ -162,7 +246,11 @@ function friendlyAuthError(error) {
 }
 
 function openAuthDialog() {
-  setAuthStatus("");
+  if (hasActiveEmailRateLimit()) {
+    startEmailRateLimitStatus();
+  } else {
+    setAuthStatus("");
+  }
   if (typeof authDialog.showModal === "function") {
     authDialog.showModal();
   } else {
@@ -312,7 +400,11 @@ emailSignup.addEventListener("click", async () => {
   });
 
   if (error) {
-    setAuthStatus(friendlyAuthError(error), "error");
+    if (/email rate limit exceeded/i.test(error.message || "")) {
+      startEmailRateLimitStatus();
+    } else {
+      setAuthStatus(friendlyAuthError(error), "error");
+    }
   } else if (!data.session) {
     setAuthStatus("Compte créé. Confirmez maintenant votre adresse e-mail.", "success");
   } else {
